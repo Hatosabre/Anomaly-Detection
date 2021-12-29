@@ -18,7 +18,7 @@ from keras import regularizers
 from keras import backend as K
 from keras.models import Model, load_model
 from keras.layers import Input, Dense
-from keras.optimizers import RMSprop
+from tensorflow.keras.optimizers import RMSprop
 from keras.callbacks import ModelCheckpoint, TensorBoard
 
 import argparse
