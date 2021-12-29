@@ -71,7 +71,6 @@ def deviation_loss(y_true, y_pred):
     '''
     z-score-based deviation loss
     '''    
-    y_true = tf.cast(y_true, tf.float32)
     confidence_margin = 5.     
     ## size=5000 is the setting of l in algorithm 1 in the paper
     ref = K.variable(np.random.normal(loc = 0., scale= 1.0, size = 5000) , dtype='float32')
@@ -288,8 +287,8 @@ def run_devnet(args):
                 x_train = vstack([x_train, noises])
                 y_train = np.append(y_train, np.zeros((noises.shape[0], 1)))
             
-            outlier_indices = np.where(y_train == 1)[0]
-            inlier_indices = np.where(y_train == 0)[0]
+            outlier_indices = np.where(y_train == 1)[0].astype(np.float32)
+            inlier_indices = np.where(y_train == 0)[0].astype(np.float32)
             print(y_train.shape[0], outlier_indices.shape[0], inlier_indices.shape[0], n_noise)
             input_shape = x_train.shape[1:]
             n_samples_trn = x_train.shape[0]
