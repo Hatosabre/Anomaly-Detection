@@ -71,6 +71,7 @@ def deviation_loss(y_true, y_pred):
     '''
     z-score-based deviation loss
     '''    
+    y_true = tf.cast(y_true, tf.float32)
     confidence_margin = 5.     
     ## size=5000 is the setting of l in algorithm 1 in the paper
     ref = K.variable(np.random.normal(loc = 0., scale= 1.0, size = 5000) , dtype='float32')
