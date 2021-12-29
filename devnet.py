@@ -151,7 +151,7 @@ def input_batch_generation_sup_sparse(x_train, outlier_indices, inlier_indices, 
         else:
             sid = rng.choice(n_outliers, 1.0)
             ref[i] = outlier_indices[sid]
-            training_labels += [1]
+            training_labels += [1.0]
     ref = x_train[ref, :].toarray()
     return ref, np.array(training_labels)
 
