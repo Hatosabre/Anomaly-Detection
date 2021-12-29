@@ -124,11 +124,11 @@ def input_batch_generation_sup(x_train, outlier_indices, inlier_indices, batch_s
     n_outliers = len(outlier_indices)
     for i in range(batch_size):    
         if(i % 2 == 0):
-            sid = rng.choice(n_inliers, 1)
+            sid = int(rng.choice(n_inliers, 1))
             ref[i] = x_train[inlier_indices[sid]]
             training_labels += [0]
         else:
-            sid = rng.choice(n_outliers, 1)
+            sid = int(rng.choice(n_outliers, 1))
             ref[i] = x_train[outlier_indices[sid]]
             training_labels += [1]
     return np.array(ref), np.array(training_labels)
