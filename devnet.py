@@ -124,13 +124,13 @@ def input_batch_generation_sup(x_train, outlier_indices, inlier_indices, batch_s
     n_outliers = len(outlier_indices)
     for i in range(batch_size):    
         if(i % 2 == 0):
-            sid = int(rng.choice(n_inliers, 1))
+            sid = rng.choice(n_inliers, 1)
             ref[i] = x_train[inlier_indices[sid]]
-            training_labels += [0]
+            training_labels += [0.0]
         else:
-            sid = int(rng.choice(n_outliers, 1))
+            sid = rng.choice(n_outliers, 1)
             ref[i] = x_train[outlier_indices[sid]]
-            training_labels += [1]
+            training_labels += [1.0]
     return np.array(ref), np.array(training_labels)
 
  
@@ -147,9 +147,9 @@ def input_batch_generation_sup_sparse(x_train, outlier_indices, inlier_indices, 
         if(i % 2 == 0):
             sid = rng.choice(n_inliers, 1)
             ref[i] = inlier_indices[sid]
-            training_labels += [0]
+            training_labels += [0.0]
         else:
-            sid = rng.choice(n_outliers, 1)
+            sid = rng.choice(n_outliers, 1.0)
             ref[i] = outlier_indices[sid]
             training_labels += [1]
     ref = x_train[ref, :].toarray()
@@ -287,8 +287,8 @@ def run_devnet(args):
                 x_train = vstack([x_train, noises])
                 y_train = np.append(y_train, np.zeros((noises.shape[0], 1)))
             
-            outlier_indices = np.where(y_train == 1)[0].astype(np.float32)
-            inlier_indices = np.where(y_train == 0)[0].astype(np.float32)
+            outlier_indices = np.where(y_train == 1)[0]
+            inlier_indices = np.where(y_train == 0)[0]
             print(y_train.shape[0], outlier_indices.shape[0], inlier_indices.shape[0], n_noise)
             input_shape = x_train.shape[1:]
             n_samples_trn = x_train.shape[0]
