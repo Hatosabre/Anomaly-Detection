@@ -39,13 +39,33 @@ def dev_network_d(input_shape):
     deeper network architecture with three hidden layers
     '''
     x_input = Input(shape=input_shape)
-    intermediate = Dense(1000, activation='relu',
-                kernel_regularizer=regularizers.l2(0.01), name = 'hl1')(x_input)
-    intermediate = Dense(250, activation='relu',
-                kernel_regularizer=regularizers.l2(0.01), name = 'hl2')(intermediate)
-    intermediate = Dense(20, activation='relu',
-                kernel_regularizer=regularizers.l2(0.01), name = 'hl3')(intermediate)
-    intermediate = Dense(1, activation='linear', name = 'score')(intermediate)
+    intermediate = Dense(
+        1000, 
+        activation='relu',
+        kernel_regularizer=regularizers.l2(0.01), 
+        name = 'hl1'
+    )(x_input)
+    
+    intermediate = Dense(
+        250, 
+        activation='relu',
+        kernel_regularizer=regularizers.l2(0.01), 
+        name = 'hl2'
+    )(intermediate)
+    
+    intermediate = Dense(
+        20, 
+        activation='relu',
+        kernel_regularizer=regularizers.l2(0.01), 
+        name = 'hl3'
+    )(intermediate)
+    
+    intermediate = Dense(
+        1, 
+        activation='linear', 
+        name = 'score'    
+    )(intermediate)
+    
     return Model(x_input, intermediate)
 
 def dev_network_s(input_shape):
@@ -53,9 +73,18 @@ def dev_network_s(input_shape):
     network architecture with one hidden layer
     '''
     x_input = Input(shape=input_shape)
-    intermediate = Dense(20, activation='relu', 
-                kernel_regularizer=regularizers.l2(0.01), name = 'hl1')(x_input)
-    intermediate = Dense(1, activation='linear',  name = 'score')(intermediate)    
+    intermediate = Dense(
+        20, 
+        activation='relu', 
+        kernel_regularizer=regularizers.l2(0.01), 
+        name = 'hl1'
+    )(x_input)
+    
+    intermediate = Dense(
+        1, 
+        activation='linear',  
+        name = 'score'
+    )(intermediate)    
     return Model(x_input, intermediate)
 
 def dev_network_linear(input_shape):
@@ -64,9 +93,14 @@ def dev_network_linear(input_shape):
     raw inputs to anomaly scores
     '''    
     x_input = Input(shape=input_shape)
-    intermediate = Dense(1, activation='linear',  name = 'score')(x_input)
+    intermediate = Dense(
+        1, 
+        activation='linear',  
+        name = 'score'
+    )(x_input)
     return Model(x_input, intermediate)
 
+@tf.function
 def deviation_loss(y_true, y_pred):
     '''
     z-score-based deviation loss
