@@ -13,7 +13,6 @@ import numpy as np
 np.random.seed(42)
 import tensorflow as tf
 tf.random.set_seed(42)
-sess = tf.Session()
 
 from keras import regularizers
 from keras import backend as K
