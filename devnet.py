@@ -12,7 +12,7 @@ August4–8, 2019, Anchorage, AK, USA.ACM, New York, NY, USA, 10 pages. https://
 import numpy as np
 np.random.seed(42)
 import tensorflow as tf
-tf.set_random_seed(42)
+tf.random.set_seed(42)
 sess = tf.Session()
 
 from keras import regularizers
